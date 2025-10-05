@@ -1,7 +1,9 @@
 # GitHub Pages Setup Guide
 
 ## The Issue
+
 The GitHub Actions workflow is failing with:
+
 ```
 Error: Create Pages site failed
 Error: HttpError: Resource not accessible by integration
@@ -46,6 +48,7 @@ After enabling Pages, the deployment workflow should work automatically. The wor
 If you continue having issues, you can use the simpler workflow:
 
 1. **Rename the workflow files**:
+
    ```bash
    mv .github/workflows/deploy.yml .github/workflows/deploy-backup.yml
    mv .github/workflows/deploy-simple.yml .github/workflows/deploy.yml
@@ -73,10 +76,12 @@ Once GitHub Pages is enabled and the workflow runs successfully, you'll have:
 ### If the workflow still fails:
 
 1. **Check repository permissions**:
+
    - Go to Settings → Actions → General
    - Ensure "Allow GitHub Actions to create and approve pull requests" is enabled
 
 2. **Check Pages settings**:
+
    - Go to Settings → Pages
    - Ensure Source is set to "GitHub Actions"
    - If you see any errors, try disabling and re-enabling Pages
@@ -100,11 +105,13 @@ Once GitHub Pages is enabled and the workflow runs successfully, you'll have:
 If GitHub Actions continues to fail, you can deploy manually:
 
 1. **Generate the data**:
+
    ```bash
    python generate_data.py
    ```
 
 2. **Copy files to a separate branch**:
+
    ```bash
    git checkout -b gh-pages
    git add index.html styles.css script.js hymnes_data.json output/
