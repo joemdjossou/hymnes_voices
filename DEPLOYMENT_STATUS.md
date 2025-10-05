@@ -7,19 +7,23 @@ Your hymnes player website has been successfully deployed to the `gh-pages` bran
 ### **📁 Files Deployed:**
 
 ✅ **Core Website Files:**
+
 - `index.html` - Main web interface (4.3KB)
 - `styles.css` - Modern responsive styling (9.5KB)
 - `script.js` - JavaScript functionality and audio player (11KB)
 - `hymnes_data.json` - Generated metadata for all 654 hymnes (441KB)
 
 ✅ **Configuration:**
+
 - `_config.yml` - Jekyll configuration for GitHub Pages
 
 ✅ **Audio Content:**
+
 - `output/` directory - All 654 hymnes with individual channel MP3 files
 - Total: 2,608+ MP3 files across all hymnes
 
 ✅ **Documentation:**
+
 - `README.md` - Project overview
 - `DEPLOYMENT.md` - Deployment guide
 - `GITHUB_PAGES_SETUP.md` - Setup instructions
@@ -27,6 +31,7 @@ Your hymnes player website has been successfully deployed to the `gh-pages` bran
 ### **🚀 Next Steps to Go Live:**
 
 1. **Enable GitHub Pages** in your repository:
+
    - Go to: `https://github.com/joemdjossou/hymnes_voices`
    - Click **Settings** → **Pages**
    - Under **Source**, select **"Deploy from a branch"**
