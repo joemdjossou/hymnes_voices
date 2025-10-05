@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hymnes Debug - Test Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button { padding: 10px 15px; margin: 5px; }
+        #results { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Hymnes Debug Test Page</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Check hymnes_data.json</h2>
+        <button onclick="testJsonFile()">Test JSON File</button>
+        <div id="json-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Check MP3 Files</h2>
+        <button onclick="testMp3Files()">Test MP3 Files</button>
+        <div id="mp3-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Check Output Directory</h2>
+        <button onclick="testOutputDir()">Test Output Directory</button>
+        <div id="output-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 4: Generate Fallback Data</h2>
+        <button onclick="testFallbackData()">Test Fallback Data</button>
+        <div id="fallback-result"></div>
+    </div>
+    
+    <div id="results"></div>
+
+    <script>
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            results.appendChild(div);
+            console.log(message);
+        }
+        
+        async function testJsonFile() {
+            const resultDiv = document.getElementById('json-result');
+            resultDiv.innerHTML = '<div class="info">Testing...</div>';
+            
+            try {
+                const response = await fetch('hymnes_data.json');
+                log(`JSON file response status: ${response.status}`, response.ok ? 'success' : 'error');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`JSON file loaded successfully. Found ${data.length} hymnes`, 'success');
+                    resultDiv.innerHTML = `<div class="success">✅ JSON file loaded: ${data.length} hymnes</div>`;
+                    
+                    // Show first few hymnes
+                    const preview = data.slice(0, 3).map(h => `${h.name} (${h.channels} channels)`).join(', ');
+                    log(`Preview: ${preview}...`, 'info');
+                } else {
+                    log(`JSON file not found or error: ${response.status}`, 'error');
+                    resultDiv.innerHTML = `<div class="error">❌ JSON file error: ${response.status}</div>`;
+                }
+            } catch (error) {
+                log(`JSON file fetch error: ${error.message}`, 'error');
+                resultDiv.innerHTML = `<div class="error">❌ JSON file fetch error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testMp3Files() {
+            const resultDiv = document.getElementById('mp3-result');
+            resultDiv.innerHTML = '<div class="info">Testing MP3 files...</div>';
+            
+            const testFiles = [
+                'output/h1/channel_00.mp3',
+                'output/h1/channel_01.mp3',
+                'output/h2/channel_00.mp3'
+            ];
+            
+            let successCount = 0;
+            let errorCount = 0;
+            
+            for (const file of testFiles) {
+                try {
+                    const response = await fetch(file, { method: 'HEAD' });
+                    if (response.ok) {
+                        log(`✅ MP3 file accessible: ${file}`, 'success');
+                        successCount++;
+                    } else {
+                        log(`❌ MP3 file not accessible: ${file} (${response.status})`, 'error');
+                        errorCount++;
+                    }
+                } catch (error) {
+                    log(`❌ MP3 file error: ${file} - ${error.message}`, 'error');
+                    errorCount++;
+                }
+            }
+            
+            resultDiv.innerHTML = `<div class="${errorCount === 0 ? 'success' : 'error'}">
+                ${errorCount === 0 ? '✅' : '❌'} MP3 files: ${successCount} accessible, ${errorCount} errors
+            </div>`;
+        }
+        
+        async function testOutputDir() {
+            const resultDiv = document.getElementById('output-result');
+            resultDiv.innerHTML = '<div class="info">Testing output directory...</div>';
+            
+            try {
+                // Try to access the output directory
+                const response = await fetch('output/', { method: 'HEAD' });
+                log(`Output directory response: ${response.status}`, response.ok ? 'success' : 'error');
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = '<div class="success">✅ Output directory accessible</div>';
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Output directory not accessible: ${response.status}</div>`;
+                }
+            } catch (error) {
+                log(`Output directory error: ${error.message}`, 'error');
+                resultDiv.innerHTML = `<div class="error">❌ Output directory error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testFallbackData() {
+            const resultDiv = document.getElementById('fallback-result');
+            resultDiv.innerHTML = '<div class="info">Testing fallback data generation...</div>';
+            
+            try {
+                // Generate fallback data
+                const hymnes = [];
+                for (let i = 1; i <= 10; i++) { // Test with first 10 hymnes
+                    const hymneName = `h${i}`;
+                    const channelCount = 4; // Fixed channel count for testing
+                    const channels = [];
+                    
+                    for (let j = 0; j < channelCount; j++) {
+                        channels.push({
+                            number: j,
+                            name: `Channel ${j.toString().padStart(2, '0')}`,
+                            filename: `channel_${j.toString().padStart(2, '0')}.mp3`,
+                            url: `output/${hymneName}/channel_${j.toString().padStart(2, '0')}.mp3`
+                        });
+                    }
+                    
+                    hymnes.push({
+                        name: hymneName,
+                        number: i,
+                        channels: channelCount,
+                        channelFiles: channels
+                    });
+                }
+                
+                log(`Fallback data generated: ${hymnes.length} hymnes`, 'success');
+                resultDiv.innerHTML = `<div class="success">✅ Fallback data generated: ${hymnes.length} hymnes</div>`;
+                
+                // Show preview
+                const preview = hymnes.map(h => `${h.name} (${h.channels} channels)`).join(', ');
+                log(`Fallback preview: ${preview}`, 'info');
+                
+            } catch (error) {
+                log(`Fallback data error: ${error.message}`, 'error');
+                resultDiv.innerHTML = `<div class="error">❌ Fallback data error: ${error.message}</div>`;
+            }
+        }
+        
+        // Auto-run tests on page load
+        window.addEventListener('load', () => {
+            log('Debug page loaded. Run tests to check hymnes data.', 'info');
+        });
+    </script>
+</body>
+</html>
