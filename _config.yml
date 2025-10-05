@@ -1,0 +1,30 @@
+# GitHub Pages configuration for Jekyll
+# Since we're using a static site, we'll disable Jekyll processing
+
+include: []
+exclude:
+  - README.md
+  - requirements.txt
+  - midi_channel_extractor.py
+  - generate_data.py
+  - test_mp3.py
+  - midi/
+  - __pycache__/
+  - .github/
+  - .gitignore
+  - .DS_Store
+
+# Enable GitHub Pages
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Site settings
+title: "Hymnes Voices"
+description: "MIDI Channel Extractor & Player"
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
