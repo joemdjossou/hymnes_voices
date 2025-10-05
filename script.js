@@ -67,22 +67,73 @@ async function loadHymnesData() {
     try {
         showLoading(true);
         
-        // Load hymnes data from JSON file
+        // Try to load hymnes data from JSON file
         const response = await fetch('hymnes_data.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         hymnesData = await response.json();
         
+        // Validate that we have data
+        if (!hymnesData || !Array.isArray(hymnesData) || hymnesData.length === 0) {
+            throw new Error('No hymnes data found in JSON file');
+        }
+        
+        console.log(`Loaded ${hymnesData.length} hymnes from JSON file`);
         displayHymnes(hymnesData);
         updateStats();
         showLoading(false);
         
     } catch (error) {
         console.error('Error loading hymnes data:', error);
-        showLoading(false);
-        showError('Failed to load hymnes data');
+        console.log('Falling back to generated hymnes data...');
+        
+        // Fallback: generate hymnes data dynamically
+        try {
+            hymnesData = await generateFallbackHymnesData();
+            displayHymnes(hymnesData);
+            updateStats();
+            showLoading(false);
+            showError('Using fallback hymnes data. Some features may be limited.');
+        } catch (fallbackError) {
+            console.error('Fallback also failed:', fallbackError);
+            showLoading(false);
+            showError('Failed to load hymnes data. Please check the console for details.');
+        }
     }
+}
+
+// Generate fallback hymnes data when JSON file is not available
+async function generateFallbackHymnesData() {
+    console.log('Generating fallback hymnes data...');
+    const hymnes = [];
+    
+    // Generate hymnes from h1 to h654
+    for (let i = 1; i <= 654; i++) {
+        const hymneName = `h${i}`;
+        // Simulate channel count (you can adjust this based on your actual data)
+        const channelCount = Math.min(8, Math.max(1, Math.floor(Math.random() * 6) + 2));
+        const channels = [];
+        
+        for (let j = 0; j < channelCount; j++) {
+            channels.push({
+                number: j,
+                name: `Channel ${j.toString().padStart(2, '0')}`,
+                filename: `channel_${j.toString().padStart(2, '0')}.mp3`,
+                url: `output/${hymneName}/channel_${j.toString().padStart(2, '0')}.mp3`
+            });
+        }
+        
+        hymnes.push({
+            name: hymneName,
+            number: i,
+            channels: channelCount,
+            channelFiles: channels
+        });
+    }
+    
+    console.log(`Generated fallback data for ${hymnes.length} hymnes`);
+    return hymnes;
 }
 
 // These functions are no longer needed as we load real data from JSON
@@ -188,8 +239,11 @@ function playChannel(channel) {
     
     // Create new audio element
     currentAudio = new Audio();
-    currentAudio.src = `output/${currentHymne.name}/${channel.filename}`;
+    const audioUrl = `output/${currentHymne.name}/${channel.filename}`;
+    currentAudio.src = audioUrl;
     currentAudio.volume = volumeSlider.value / 100;
+    
+    console.log(`Attempting to play: ${audioUrl}`);
     
     // Update UI
     globalTrackName.textContent = `Hymne ${currentHymne.name} - ${channel.name}`;
@@ -204,6 +258,7 @@ function playChannel(channel) {
     // Audio event listeners
     currentAudio.addEventListener('loadedmetadata', () => {
         duration = currentAudio.duration;
+        console.log(`Audio loaded successfully: ${audioUrl}`);
     });
     
     currentAudio.addEventListener('timeupdate', updateProgress);
@@ -214,13 +269,21 @@ function playChannel(channel) {
         updateChannelButtons();
     });
     
+    currentAudio.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+        console.error('Failed to load audio file:', audioUrl);
+        showError(`Failed to load audio file: ${channel.filename}`);
+    });
+    
     // Start playing
     currentAudio.play().then(() => {
         isPlaying = true;
         updateGlobalPlayButton();
+        console.log(`Successfully started playing: ${audioUrl}`);
     }).catch(error => {
         console.error('Error playing audio:', error);
-        showError('Error playing audio file');
+        console.error('Audio URL:', audioUrl);
+        showError(`Error playing audio file: ${channel.filename}. Check console for details.`);
     });
 }
 
