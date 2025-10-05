@@ -5,11 +5,13 @@
 1. **Go to GitHub**: Visit your repository at `https://github.com/joemdjossou/hymnes_voices`
 
 2. **Create Pull Request**: Click the "Compare & pull request" button that should appear, or go to:
+
    ```
    https://github.com/joemdjossou/hymnes_voices/pull/new/feature/web-interface
    ```
 
 3. **Fill in the details**:
+
    - **Title**: `feat: Add modern web interface for hymnes player`
    - **Description**: Copy the content from `pull_request_template.md`
 
