@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hymnes Voices - MIDI Channel Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-music"></i> Hymnes Voices</h1>
+                <p>MIDI Channel Extractor & Player</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="search-section">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search hymnes (e.g., h1, h100, h200...)" autocomplete="off">
+                </div>
+                <div class="filter-controls">
+                    <select id="sortSelect">
+                        <option value="name">Sort by Name</option>
+                        <option value="number">Sort by Number</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stat-card">
+                    <i class="fas fa-folder"></i>
+                    <span id="totalHymnes">0</span>
+                    <label>Hymnes</label>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-file-audio"></i>
+                    <span id="totalChannels">0</span>
+                    <label>Channels</label>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-play"></i>
+                    <span id="currentlyPlaying">None</span>
+                    <label>Now Playing</label>
+                </div>
+            </div>
+
+            <div class="hymnes-grid" id="hymnesGrid">
+                <!-- Hymnes will be loaded here dynamically -->
+            </div>
+
+            <div class="loading" id="loadingIndicator">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading hymnes...</p>
+            </div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <p>No hymnes found matching your search.</p>
+            </div>
+        </main>
+
+        <!-- Audio Player Modal -->
+        <div class="modal" id="playerModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle">Hymne Player</h2>
+                    <button class="close-btn" id="closeModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="player-info">
+                        <div class="hymne-info">
+                            <h3 id="currentHymne">Hymne h1</h3>
+                            <p id="channelCount">4 channels available</p>
+                        </div>
+                    </div>
+                    
+                    <div class="channels-list" id="channelsList">
+                        <!-- Channels will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Global Audio Player -->
+        <div class="global-player" id="globalPlayer">
+            <div class="player-controls">
+                <button class="play-btn" id="globalPlayBtn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <div class="track-info">
+                    <span id="globalTrackName">No track selected</span>
+                    <div class="progress-bar">
+                        <div class="progress" id="globalProgress"></div>
+                    </div>
+                </div>
+                <div class="volume-control">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                </div>
+                <button class="stop-btn" id="globalStopBtn">
+                    <i class="fas fa-stop"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

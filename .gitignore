@@ -36,7 +36,7 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Audio files (optional - uncomment if you don't want to track MP3 files)
+# Audio files - we need to include MP3 files for GitHub Pages
 # *.mp3
 # *.wav
 # *.flac
