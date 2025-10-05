@@ -1,6 +1,7 @@
 # 🎵 Hymnes Voices - Web Interface
 
 ## Summary
+
 This PR adds a complete modern web interface for browsing and playing the extracted hymnes MP3 files.
 
 ## ✨ Features Added
@@ -56,6 +57,7 @@ Once merged, the website will be automatically deployed to GitHub Pages and acce
 ## 📸 Screenshots
 
 The interface includes:
+
 - Beautiful gradient design with modern UI elements
 - Grid layout showing all hymnes with channel previews
 - Modal player for individual hymne channels
