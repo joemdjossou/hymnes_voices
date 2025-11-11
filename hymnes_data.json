@@ -436,13 +436,19 @@
   {
     "name": "h111",
     "number": 111,
-    "channels": 3,
+    "channels": 4,
     "channelFiles": [
       {
         "number": 0,
         "name": "Channel 00",
         "filename": "channel_00.mp3",
         "url": "output/h111/channel_00.mp3"
+      },
+      {
+        "number": 1,
+        "name": "Channel 01",
+        "filename": "channel_01.mp3",
+        "url": "output/h111/channel_01.mp3"
       },
       {
         "number": 2,
@@ -895,13 +901,19 @@
   {
     "name": "h125",
     "number": 125,
-    "channels": 3,
+    "channels": 4,
     "channelFiles": [
       {
         "number": 0,
         "name": "Channel 00",
         "filename": "channel_00.mp3",
         "url": "output/h125/channel_00.mp3"
+      },
+      {
+        "number": 1,
+        "name": "Channel 01",
+        "filename": "channel_01.mp3",
+        "url": "output/h125/channel_01.mp3"
       },
       {
         "number": 2,
@@ -10034,7 +10046,7 @@
   {
     "name": "h391",
     "number": 391,
-    "channels": 3,
+    "channels": 4,
     "channelFiles": [
       {
         "number": 0,
@@ -10053,6 +10065,12 @@
         "name": "Channel 02",
         "filename": "channel_02.mp3",
         "url": "output/h391/channel_02.mp3"
+      },
+      {
+        "number": 3,
+        "name": "Channel 03",
+        "filename": "channel_03.mp3",
+        "url": "output/h391/channel_03.mp3"
       }
     ]
   },
@@ -12694,8 +12712,14 @@
   {
     "name": "h469",
     "number": 469,
-    "channels": 3,
+    "channels": 4,
     "channelFiles": [
+      {
+        "number": 0,
+        "name": "Channel 00",
+        "filename": "channel_00.mp3",
+        "url": "output/h469/channel_00.mp3"
+      },
       {
         "number": 1,
         "name": "Channel 01",
@@ -16067,7 +16091,7 @@
   {
     "name": "h567",
     "number": 567,
-    "channels": 3,
+    "channels": 4,
     "channelFiles": [
       {
         "number": 0,
@@ -16086,6 +16110,12 @@
         "name": "Channel 02",
         "filename": "channel_02.mp3",
         "url": "output/h567/channel_02.mp3"
+      },
+      {
+        "number": 3,
+        "name": "Channel 03",
+        "filename": "channel_03.mp3",
+        "url": "output/h567/channel_03.mp3"
       }
     ]
   },
@@ -16464,13 +16494,19 @@
   {
     "name": "h579",
     "number": 579,
-    "channels": 3,
+    "channels": 4,
     "channelFiles": [
       {
         "number": 0,
         "name": "Channel 00",
         "filename": "channel_00.mp3",
         "url": "output/h579/channel_00.mp3"
+      },
+      {
+        "number": 1,
+        "name": "Channel 01",
+        "filename": "channel_01.mp3",
+        "url": "output/h579/channel_01.mp3"
       },
       {
         "number": 2,
@@ -16582,8 +16618,14 @@
   {
     "name": "h582",
     "number": 582,
-    "channels": 3,
+    "channels": 4,
     "channelFiles": [
+      {
+        "number": 0,
+        "name": "Channel 00",
+        "filename": "channel_00.mp3",
+        "url": "output/h582/channel_00.mp3"
+      },
       {
         "number": 1,
         "name": "Channel 01",
@@ -20215,13 +20257,31 @@
   {
     "name": "h99",
     "number": 99,
-    "channels": 1,
+    "channels": 4,
     "channelFiles": [
       {
         "number": 0,
         "name": "Channel 00",
         "filename": "channel_00.mp3",
         "url": "output/h99/channel_00.mp3"
+      },
+      {
+        "number": 1,
+        "name": "Channel 01",
+        "filename": "channel_01.mp3",
+        "url": "output/h99/channel_01.mp3"
+      },
+      {
+        "number": 2,
+        "name": "Channel 02",
+        "filename": "channel_02.mp3",
+        "url": "output/h99/channel_02.mp3"
+      },
+      {
+        "number": 3,
+        "name": "Channel 03",
+        "filename": "channel_03.mp3",
+        "url": "output/h99/channel_03.mp3"
       }
     ]
   }
